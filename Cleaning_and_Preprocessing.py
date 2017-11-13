@@ -13,7 +13,11 @@ import string
 
 processed_data = []
 number = 1
+# define the stop words
 stop_words = stopwords.words('english')
+stop_words += ['google', 'google.', 'de', 'en', 'el', 'n', 'su', 'la']
+
+#print (stop_words)
 
 #read raw data
 with open("news titles from EBSCO.csv", "rb") as rf:  
@@ -47,10 +51,12 @@ with open("news titles from EBSCO.csv", "rb") as rf:
     rf.close()
 
 #save the data
-with open("cleaned and preprocessed data from EBSCO.csv", "wb") as wf:
-    writer = csv.writer(wf, delimiter=',')
-    for row in processed_data:
-        writer.writerow(row)
-    wf.close()
-
+def save_data(n):
+    with open(str(n) + "-cleaned and preprocessed data from EBSCO.csv", "wb") as wf:
+        writer = csv.writer(wf, delimiter=',')
+        for row in processed_data:
+            writer.writerow(row)
+        wf.close()
+        
+save_data(1)
 print ("The raw data is cleaned and preprocessed!")
